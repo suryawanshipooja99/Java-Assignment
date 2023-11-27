@@ -1,0 +1,94 @@
+hotel reservation system
+Entities:
+Guest:
+
+Fields: id, name, email
+Relationships: OneToMany with Reservation
+Reservation:
+
+Fields: id, startDate, endDate, guest (ManyToOne relationship with Guest)
+API Endpoints:
+Create a new reservation:
+
+Endpoint: POST /reservations
+Request Body:
+json
+Copy code
+{
+  "guestId": 1,
+  "startDate": "2023-01-01",
+  "endDate": "2023-01-10"
+}
+Response:
+json
+Copy code
+{
+  "id": 1,
+  "startDate": "2023-01-01",
+  "endDate": "2023-01-10",
+  "guest": {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+Update reservation dates:
+
+Endpoint: PUT /reservations/{reservationId}
+Request Body:
+json
+Copy code
+{
+  "startDate": "2023-02-01",
+  "endDate": "2023-02-10"
+}
+Response:
+json
+Copy code
+{
+  "id": 1,
+  "startDate": "2023-02-01",
+  "endDate": "2023-02-10",
+  "guest": {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+Cancel reservation:
+
+Endpoint: DELETE /reservations/{reservationId}
+Response:
+json
+Copy code
+{
+  "message": "Reservation canceled successfully."
+}
+List all reservations made by a guest:
+
+Endpoint: GET /guests/{guestId}/reservations
+Response:
+json
+Copy code
+[
+  {
+    "id": 1,
+    "startDate": "2023-02-01",
+    "endDate": "2023-02-10",
+    "guest": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  },
+  {
+    "id": 2,
+    "startDate": "2023-03-01",
+    "endDate": "2023-03-10",
+    "guest": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  }
+]
